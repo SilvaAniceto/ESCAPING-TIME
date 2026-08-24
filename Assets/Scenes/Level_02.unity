@@ -15671,7 +15671,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3774754941410985247, guid: 1c9712f4aead37e4bac1294162ac97ec, type: 3}
       propertyPath: _hasInfinityDash
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3774754941410985247, guid: 1c9712f4aead37e4bac1294162ac97ec, type: 3}
       propertyPath: _hasInfinityAirJump

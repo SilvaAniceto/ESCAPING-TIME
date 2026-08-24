@@ -78,10 +78,13 @@ public class GameUIManager : MonoBehaviour, IUIManager
     [SerializeField] private Text _scoreDisplay;
 
     [Header("Power Ups")]
+    [SerializeField] private GameObject _infinityAirJump;
     [SerializeField] private Animator _airJumpAnimatorPowerUp;
     [SerializeField] private Image _airJumpUIpowerUp;
+    [SerializeField] private GameObject _infinityDash;
     [SerializeField] private Animator _dashAnimatorPowerUp;
     [SerializeField] private Image _dashUIpowerUp;
+    [SerializeField] private GameObject _infinityWallMove;
     [SerializeField] private Animator _wallMoveAnimatorPowerUp;
     [SerializeField] private Image _wallMoveUIpowerUp;
 
@@ -377,52 +380,69 @@ public class GameUIManager : MonoBehaviour, IUIManager
 
         _hourglassParent.GetChild(value).gameObject.SetActive(true);
     }
-    public void SetAirJumpPowerUpUI(string clip)
+    public void SetAirJumpPowerUpUI(bool isInfinity)
     {
         if (!_characterUIManager.activeInHierarchy)
         {
-            StartCoroutine(WaitCharacterUI(clip, _airJumpAnimatorPowerUp));
+            StartCoroutine(WaitCharacterUI(isInfinity, _infinityAirJump));
             return;
         }
 
-        _airJumpAnimatorPowerUp.gameObject.SetActive(true);
-        _airJumpAnimatorPowerUp.Play(clip);
+        _infinityAirJump.SetActive(isInfinity);
     }
-    public void SetOvertimeAirJumpPowerUpUI(float value, CharacterPowerUpManager characterPowerUpManager)
+    public void SetOvertimeAirJumpPowerUpUI(string clip, float value, CharacterPowerUpManager characterPowerUpManager)
     {
-        StartCoroutine(UpdatePowerUpUIElement(value, _airJumpUIpowerUp, _airJumpAnimatorPowerUp, characterPowerUpManager));
+        if (_infinityAirJump.activeInHierarchy)
+        {
+            return;
+        }
+
+        StartCoroutine(UpdatePowerUpUIElement(clip, value, _airJumpUIpowerUp, _airJumpAnimatorPowerUp, characterPowerUpManager));
     }
-    public void SetDashPowerUpUI(string clip)
+    public void SetDashPowerUpUI(bool isInfinity)
     {
         if (!_characterUIManager.activeInHierarchy)
         {
-            StartCoroutine(WaitCharacterUI(clip, _dashAnimatorPowerUp));
+            StartCoroutine(WaitCharacterUI(isInfinity, _infinityDash));
             return;
         }
 
-        _dashAnimatorPowerUp.Play(clip);
+        _infinityDash.SetActive(isInfinity);
     }
-    public void SetOvertimeDashPowerUpUI(float value, CharacterPowerUpManager characterPowerUpManager)
+    public void SetOvertimeDashPowerUpUI(string clip, float value, CharacterPowerUpManager characterPowerUpManager)
     {
-        StartCoroutine(UpdatePowerUpUIElement(value, _dashUIpowerUp, _dashAnimatorPowerUp, characterPowerUpManager));
+        if (_infinityDash.activeInHierarchy)
+        {
+            return;
+        }
+
+        StartCoroutine(UpdatePowerUpUIElement(clip, value, _dashUIpowerUp, _dashAnimatorPowerUp, characterPowerUpManager));
     }
-    public void SetWallMovePowerUpUI(string clip)
+    public void SetWallMovePowerUpUI(bool isInfinity)
     {
         if (!_characterUIManager.activeInHierarchy)
         {
-            StartCoroutine(WaitCharacterUI(clip, _wallMoveAnimatorPowerUp));
+            StartCoroutine(WaitCharacterUI(isInfinity, _infinityWallMove));
             return;
         }
 
-        _wallMoveAnimatorPowerUp.Play(clip);
+        _infinityWallMove.SetActive(isInfinity);
     }
-    public void SetOvertimeWallMovePowerUpUI(float value, CharacterPowerUpManager characterPowerUpManager)
+    public void SetOvertimeWallMovePowerUpUI(string clip, float value, CharacterPowerUpManager characterPowerUpManager)
     {
-        StartCoroutine(UpdatePowerUpUIElement(value, _wallMoveUIpowerUp, _wallMoveAnimatorPowerUp, characterPowerUpManager));
+        if (_infinityWallMove.activeInHierarchy)
+        {
+            return;
+        }
+
+        StartCoroutine(UpdatePowerUpUIElement(clip, value, _wallMoveUIpowerUp, _wallMoveAnimatorPowerUp, characterPowerUpManager));
     }
 
-    IEnumerator UpdatePowerUpUIElement(float value, Image sourceImage, Animator animator, CharacterPowerUpManager characterPowerUpManager)
+    IEnumerator UpdatePowerUpUIElement(string clip, float value, Image sourceImage, Animator animator, CharacterPowerUpManager characterPowerUpManager)
     {
+        animator.gameObject.SetActive(true);
+        animator.Play(clip);
+
         sourceImage.fillAmount = 1;
 
         float currentTime = value;
@@ -449,12 +469,11 @@ public class GameUIManager : MonoBehaviour, IUIManager
 
         _gameContextManager.WaitSeconds(action, ServiceLocator.AudioManager.AudioClipLength("EndTimeCount"));
     }
-    IEnumerator WaitCharacterUI(string clip, Animator animator)
+    IEnumerator WaitCharacterUI(bool isInfinity, GameObject powerUpObject)
     {
         yield return new WaitUntil(() => _characterUIManager.activeInHierarchy);
 
-        animator.gameObject.SetActive(true);
-        animator.Play(clip);
+        powerUpObject.SetActive(isInfinity);
     }
     #endregion
 

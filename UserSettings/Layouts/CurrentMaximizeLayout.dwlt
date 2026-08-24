@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 92
+  controlID: 16860
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 93
+  controlID: 16861
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 21
+  controlID: 16789
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -244,9 +244,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 0afbffff
+      m_SelectedIDs: e299fcff
+      m_LastClickedID: -222750
+      m_ExpandedIDs: 7cc7fcffa0fafcff2e2afdff901cfeff064ffeff7cc2feffaefdfeffe6fdfeffe6fffeffe8fffeffc611ffff4c16fffffcd8ffffe2deffff0afbffffa69b0000ee4401006e46010026a2010022ac010050e9010082ee0100bcf80100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -346,7 +346,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/CharacterManager/Managers
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -354,19 +354,19 @@ MonoBehaviour:
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
-  m_StartGridSize: 16
+  m_StartGridSize: 40
   m_LastFolders:
-  - Assets/Scenes
-  m_LastFoldersGridSize: 16
+  - Assets/Scripts/CharacterManager/Managers
+  m_LastFoldersGridSize: 40
   m_LastProjectPath: F:\Unity Projects\Escaping-Time
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 7}
-    m_SelectedIDs: 008c0000
-    m_LastClickedID: 35840
-    m_ExpandedIDs: 00000000a68a0000a88a0000aa8a0000ac8a0000ae8a0000b08a0000b28a0000
+    scrollPos: {x: 0, y: 231}
+    m_SelectedIDs: 048c0000
+    m_LastClickedID: 35844
+    m_ExpandedIDs: 00000000a68a0000a88a0000aa8a0000ac8a0000ae8a0000b08a0000b28a0000228c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -395,7 +395,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a68a0000a88a0000aa8a0000ac8a0000ae8a0000b08a0000b28a0000
+    m_ExpandedIDs: 00000000a68a0000aa8a0000ac8a0000ae8a0000b08a0000b28a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -421,10 +421,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c0a1000024800000868100003c8900005c890000d0810000d88100004a810000e6800000ec800000ea800000cc840000e27e0000e47e000028820000e285000008b500008c82000082820000388000002e80000026f1ffffa280000064090200f68400008e800000a28200007c800000d8850000048400001c8400005c84000032850000708c0000908700008cc200007cd7000090850000
+    m_SelectedInstanceIDs: e299fcff
+    m_LastClickedInstanceID: -222750
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c0a1000024800000868100003c8900005c890000d0810000d88100004a810000e6800000ec800000ea800000cc840000e27e0000e47e000028820000e285000008b500008c82000082820000388000002e80000026f1ffffa280000064090200f68400008e800000a28200007c800000d8850000048400001c8400005c84000032850000708c0000908700008cc200007cd700009085000008850000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -450,7 +450,7 @@ MonoBehaviour:
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
-    m_GridSize: 16
+    m_GridSize: 40
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 171
 --- !u!114 &9
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 94
+  controlID: 16862
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -1451,9 +1451,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 14.023254, y: 7.1197147, z: -0.18690583}
+    m_Target: {x: 23.760954, y: 13.037639, z: -0.05860389}
     speed: 2
-    m_Value: {x: 14.023254, y: 7.1197147, z: -0.18690583}
+    m_Value: {x: 23.760954, y: 13.037639, z: -0.05860389}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1503,9 +1503,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 19.397736
+    m_Target: 69.34186
     speed: 2
-    m_Value: 19.397736
+    m_Value: 69.34186
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1796,8 +1796,8 @@ MonoBehaviour:
     y: 670
     width: 990
     height: 263
-  m_MinSize: {x: 52, y: 76}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 50, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -1879,7 +1879,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -1272
+  m_LastSelectedObjectID: -65562
 --- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -2029,14 +2029,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 0.80103093
+    - e00: 0.7
       e01: 0
       e02: 0
-      e03: -9.030945
+      e03: 56.5
       e10: 0
-      e11: 0.80103093
+      e11: 0.7
       e12: 0
-      e13: 29.355667
+      e13: 1
       e20: 0
       e21: 0
       e22: 1
@@ -2077,14 +2077,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 3
+    - e00: 0.57931036
       e01: 0
       e02: 0
-      e03: -1505.3292
+      e03: 118.65515
       e10: 0
-      e11: 3
+      e11: 0.57931036
       e12: 0
-      e13: -1728.0939
+      e13: 1.0344772
       e20: 0
       e21: 0
       e22: 1
@@ -2125,14 +2125,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 0.98041236
+    - e00: 0.828866
       e01: 0
       e02: 0
-      e03: 0.094696045
+      e03: -9.865997
       e10: 0
-      e11: 0.98041236
+      e11: 0.828866
       e12: 0
-      e13: 33.25271
+      e13: 3.6804123
       e20: 0
       e21: 0
       e22: 1

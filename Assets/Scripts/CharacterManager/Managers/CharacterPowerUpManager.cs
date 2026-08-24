@@ -11,8 +11,13 @@ public class CharacterPowerUpManager : MonoBehaviour
     [SerializeField] private bool _hasInfinityWallMove;
 
     private bool _hasTemporaryDash;
+    private float _temporaryDashTime;
+
     private bool _hasTemporaryAirJump;
+    private float _temporaryAirJumpTime;
+
     private bool _hasTemporaryWallMove;
+    private float _temporaryWallMoveTime;
 
     private bool _dashOnCoolDown;
     private bool _dashIsWaitingGroundedState;
@@ -20,9 +25,9 @@ public class CharacterPowerUpManager : MonoBehaviour
     private bool _airJumpIsAllowed;
 
     [HideInInspector] public UnityEvent OnPowerUpInteractableRecharge = new UnityEvent();
-    [HideInInspector] public UnityEvent<string> OnDashPowerStateChange = new UnityEvent<string>();
-    [HideInInspector] public UnityEvent<string> OnAirJumpPowerStateChange = new UnityEvent<string>();
-    [HideInInspector] public UnityEvent<string> OnWallMovePowerStateChange = new UnityEvent<string>();
+    [HideInInspector] public UnityEvent<string, float, CharacterPowerUpManager> OnDashPowerStateChange = new UnityEvent<string, float, CharacterPowerUpManager>();
+    [HideInInspector] public UnityEvent<string, float, CharacterPowerUpManager> OnAirJumpPowerStateChange = new UnityEvent<string, float, CharacterPowerUpManager>();
+    [HideInInspector] public UnityEvent<string, float, CharacterPowerUpManager> OnWallMovePowerStateChange = new UnityEvent<string, float, CharacterPowerUpManager>();
 
     public bool HasInfinityDash
     {
@@ -36,10 +41,7 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasInfinityDash = value;
 
-            if (_hasInfinityDash)
-            {
-                OnDashPowerStateChange.Invoke("PwrUp_Infinity");
-            }
+            ServiceLocator.UIManager.SetAirJumpPowerUpUI(_hasInfinityDash);
         }
     }
     public bool HasTemporaryDash
@@ -54,7 +56,10 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasTemporaryDash = value;
 
-            OnDashPowerStateChange.Invoke(_hasTemporaryDash ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit");
+            string clip = _hasTemporaryDash ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit";
+            float coolDown = _hasTemporaryDash ? _temporaryDashTime : 0f;
+
+            OnDashPowerStateChange.Invoke(clip, coolDown, this);
         }
     }
     public bool HasDash => HasTemporaryDash || HasInfinityDash;
@@ -72,10 +77,7 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasInfinityAirJump = value;
 
-            if (_hasInfinityAirJump)
-            {
-                OnAirJumpPowerStateChange.Invoke("PwrUp_Infinity");
-            }
+            ServiceLocator.UIManager.SetAirJumpPowerUpUI(_hasInfinityAirJump);
         }
     }
     public bool HasTemporaryAirJump
@@ -90,7 +92,10 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasTemporaryAirJump = value;
 
-            OnAirJumpPowerStateChange.Invoke(_hasTemporaryAirJump ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit");
+            string clip = _hasTemporaryAirJump ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit";
+            float coolDown = _hasTemporaryAirJump ? _temporaryAirJumpTime : 0f;
+
+            OnAirJumpPowerStateChange.Invoke(clip, coolDown, this);
         }
     }
     public bool HasAirJump => HasTemporaryAirJump || HasInfinityAirJump;
@@ -108,10 +113,7 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasInfinityWallMove = value;
 
-            if (_hasInfinityWallMove)
-            {
-                OnWallMovePowerStateChange.Invoke("PwrUp_Infinity");
-            }
+            ServiceLocator.UIManager.SetAirJumpPowerUpUI(_hasInfinityWallMove);
         }
     }
     public bool HasTemporaryWallMove
@@ -126,7 +128,10 @@ public class CharacterPowerUpManager : MonoBehaviour
 
             _hasTemporaryWallMove = value;
 
-            OnWallMovePowerStateChange.Invoke(_hasTemporaryWallMove ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit");
+            string clip = _hasTemporaryWallMove ? "PwrUp_UI_Lit" : "PwrUp_UI_Unlit";
+            float coolDown = _hasTemporaryWallMove ? _temporaryWallMoveTime : 0f;
+
+            OnWallMovePowerStateChange.Invoke(clip, coolDown, this);
         }
     }
     public bool HasWallMove => HasInfinityWallMove || HasTemporaryWallMove;
@@ -149,6 +154,8 @@ public class CharacterPowerUpManager : MonoBehaviour
     }
     public void SetTemporaryDash(float coolDown = 0)
     {
+        _temporaryDashTime = coolDown;
+
         HasTemporaryDash = true;
         if (coolDown > 0)
         {
@@ -156,12 +163,11 @@ public class CharacterPowerUpManager : MonoBehaviour
             {
                 HasTemporaryDash = false;
             });
-            ServiceLocator.UIManager.SetOvertimeDashPowerUpUI(coolDown, this);
         }
     }
     public void RegisterDashCallback()
     {
-        OnDashPowerStateChange.AddListener(ServiceLocator.UIManager.SetDashPowerUpUI);
+        OnDashPowerStateChange.AddListener(ServiceLocator.UIManager.SetOvertimeDashPowerUpUI);
     }
 
     public void EnableAirJump()
@@ -174,6 +180,8 @@ public class CharacterPowerUpManager : MonoBehaviour
     }
     public void SetTemporaryAirJump(float coolDown = 0)
     {
+        _temporaryAirJumpTime = coolDown;
+
         HasTemporaryAirJump = true;
         if (coolDown > 0)
         {
@@ -181,16 +189,17 @@ public class CharacterPowerUpManager : MonoBehaviour
             {
                 HasTemporaryAirJump = false;
             });
-            ServiceLocator.UIManager.SetOvertimeAirJumpPowerUpUI(coolDown, this);
         }
     }
     public void RegisterAirJumpCallback()
     {
-        OnAirJumpPowerStateChange.AddListener(ServiceLocator.UIManager.SetAirJumpPowerUpUI);
+        OnAirJumpPowerStateChange.AddListener(ServiceLocator.UIManager.SetOvertimeAirJumpPowerUpUI);
     }
 
     public void SetTemporaryWallMove(float coolDown = 0)
     {
+        _temporaryWallMoveTime = coolDown;
+
         HasTemporaryWallMove = true;
         if (coolDown > 0)
         {
@@ -198,12 +207,11 @@ public class CharacterPowerUpManager : MonoBehaviour
             {
                 HasTemporaryWallMove = false;
             });
-            ServiceLocator.UIManager.SetOvertimeWallMovePowerUpUI(coolDown, this);
         }
     }
     public void RegisterWallMoveCallback()
     {
-        OnWallMovePowerStateChange.AddListener(ServiceLocator.UIManager.SetWallMovePowerUpUI);
+        OnWallMovePowerStateChange.AddListener(ServiceLocator.UIManager.SetOvertimeWallMovePowerUpUI);
     }
 
     void OnDestroy()

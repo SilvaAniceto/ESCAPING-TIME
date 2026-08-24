@@ -464,6 +464,8 @@ public class GameContextManager : MonoBehaviour, IGameStateManager, IGameFlowMan
     }
     private void StartDevelopmentEnvironment()
     {
+        InstantiateLevelManagers();
+
         RegisterServices();
 
         _transitionScreen.Initialize();
